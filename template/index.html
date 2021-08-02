@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<div class="adjust">
+    <form action="/" method="POST">
+        <div class="form-group row">
+            <div class="col-md-4 offset-md-3">
+                <label class="col-form-label">Task to do:</label>
+                <input type="text" class="form-control" placeholder="Enter your task here!" name="details" id="details" required>
+                <label class="col-form-label">Name:</label>
+                <input type="text" class="form-control" placeholder="Enter your name" id="task_name" name="task_name" required>
+                <br>
+                <button type="submit" class="btn btn-dark" value="add_task">Add task <i class="fa fa-plus"
+                        aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+<br>
+<div class="container">
+    <h3>TASK TABLE</h3>
+    {% if tasks|length < 1 %}
+    <h5>No Tasks, Create now!</h5>
+    {% else %}
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Creator</th>
+                <th scope="col">Task</th>
+                <th scope="col">Created at:</th>
+                <th scope="col">Update/Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <th scope="row">{{task.task_id}}</th>
+                <td>{{task.name}}</td>
+                <td>{{task.task_detail}}</td>
+                <td>{{task.time.date()}}</td>
+                <td>
+                    <a href="/update/{{task.task_id}}">Update</a>
+                    <br>
+                    <a href="/delete/{{task.task_id}}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}
